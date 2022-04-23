@@ -9,17 +9,17 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'docker build -t petrugiurca/dp-alpine:latest .'
+        sh 'docker image build --no-cache -t petrugiurca/dp-alpine:latest .'
       }
     }
     stage('Login') {
       steps {
-        sh 'docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+        sh 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
       }
     }
     stage('Push') {
       steps {
-        sh 'docker push petrugiurca/dp-alpine:latest'
+        sh 'docker image push petrugiurca/dp-alpine:latest'
       }
     }
   }
